@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HANDYHT — Visual Storyteller</title>
+  <meta name="description" content="Handy is a photographer and videographer based in Seattle, specializing in engagements, graduations, and life's greatest moments.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (Facebook, LinkedIn, iMessage) -->
+  <meta property="og:title" content="HANDYHT — Visual Storyteller">
+  <meta property="og:description" content="Photographer and videographer based in Seattle, capturing life's greatest moments.">
+  <meta property="og:image" content="images/hero/profile.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HANDYHT — Visual Storyteller">
+  <meta name="twitter:description" content="Photographer and videographer based in Seattle, capturing life's greatest moments.">
+  <meta name="twitter:image" content="images/hero/profile.jpg">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============================
+       NAVIGATION
+       Desktop: horizontal links
+       Mobile: hamburger → slide-down menu
+       Theme: dark/light toggle switch
+       ============================ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">HANDYHT</a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="videography.html">Videography</a></li>
+        <li><a href="contact.html">About / Contact</a></li>
+        <li>
+          <!-- Dark / Light Theme Toggle -->
+          <div class="theme-wrap">
+            <!-- Moon icon (dark mode) -->
+            <svg class="theme-icon theme-moon" width="14" height="14" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+
+            <!-- Toggle switch -->
+            <button class="theme-toggle" title="Toggle theme"
+                    onclick="document.documentElement.classList.toggle('light');
+                             localStorage.setItem('theme',
+                               document.documentElement.classList.contains('light') ? 'light' : 'dark')">
+            </button>
+
+            <!-- Sun icon (light mode) -->
+            <svg class="theme-icon theme-sun" width="14" height="14" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Hamburger Button (mobile only) -->
+      <button class="hamburger" aria-label="Menu"
+              onclick="var m=document.getElementById('mobileMenu');m.classList.toggle('open');this.classList.toggle('active');document.body.style.overflow=m.classList.contains('open')?'hidden':''">
+        <svg width="24" height="24" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (slides down when hamburger is tapped) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="active">Home</a>
+    <a href="photography.html">Photography</a>
+    <a href="videography.html">Videography</a>
+    <a href="contact.html">About / Contact</a>
+  </div>
+
+  <!-- Camera Flash Overlay (white flash on page load) -->
+  <div class="flash-overlay" id="flash"></div>
+
+
+  <!-- ============================
+       HERO SECTION
+       Polaroid profile photo on the left,
+       greeting text + CTA button on the right.
+       Camera flash plays on first load.
+
+       To change profile photo: replace images/hero/profile.jpg
+       To edit greeting: change the <h1> and <p> below
+       ============================ -->
+  <section class="hero flash-reveal">
+
+    <!-- Bokeh Background (floating light dots) -->
+    <div class="bokeh">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-content">
+
+      <!-- Polaroid Photo -->
+      <div class="polaroid">
+        <div class="polaroid-inner">
+          <div class="polaroid-photo"
+               style="background-image: url('images/hero/profile.jpg')"></div>
+          <div class="polaroid-label"></div>
+        </div>
+      </div>
+
+      <!-- Greeting Text -->
+      <div class="hero-text">
+        <h1>Hi, I'm Handy!</h1>
+        <p>Capturing Life's Greatest Moments</p>
+        <a href="photography.html" class="hero-cta">View My Work</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       FEATURED WORK
+       Hand-picked photos from the gallery.
+       To change featured photos: swap the <img> src paths below.
+       ============================ -->
+  <section class="featured-section">
+    <div class="section section--flush">
+
+      <div class="section-header fade-in">
+        <h2>Featured Work.</h2>
+        <p>Engagements, graduations, and every moment in between.</p>
+      </div>
+
+      <div class="gallery-grid fade-in">
+        <div class="gallery-item">
+          <img src="images/photography/engagements/engagement-3.jpg" alt="Engagement photography by HANDYHT">
+        </div>
+        <div class="gallery-item">
+          <img src="images/photography/graduations/graduation-2.jpg" alt="Graduation photography by HANDYHT">
+        </div>
+        <div class="gallery-item">
+          <img src="images/photography/moments/moment-3.jpg" alt="Lifestyle moment captured by HANDYHT">
+        </div>
+      </div>
+
+      <div class="cta-wrap fade-in">
+        <a href="photography.html" class="hero-cta">View All Photography</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       MOTION SECTION
+       Teaser for the videography page.
+       ============================ -->
+  <section class="section">
+
+    <div class="section-header fade-in">
+      <h2>Motion.</h2>
+      <p>Cinematic films and vlogs that bring stories to life.</p>
+    </div>
+
+    <div class="cta-wrap fade-in">
+      <a href="videography.html" class="hero-cta">View All Videos</a>
+    </div>
+
+  </section>
+
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer>
+    <p>&copy; 2026 HANDYHT. All rights reserved.</p>
+    <!-- Theme Toggle (mobile only) -->
+    <div class="footer-theme-toggle">
+      <div class="theme-wrap">
+        <svg class="theme-icon theme-moon" width="14" height="14" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <button class="theme-toggle" title="Toggle theme"
+                onclick="document.documentElement.classList.toggle('light');
+                         localStorage.setItem('theme',
+                           document.documentElement.classList.contains('light') ? 'light' : 'dark')">
+        </button>
+        <svg class="theme-icon theme-sun" width="14" height="14" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================
+       SCRIPTS
+       ============================ -->
+  <script>
+    /* Load saved theme preference (light or dark) */
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light');
+    }
+
+    /* Fade-in elements when they scroll into view */
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    /* Remove the flash overlay after the animation finishes */
+    setTimeout(() => {
+      const flash = document.getElementById('flash');
+      if (flash) flash.remove();
+    }, 1500);
+
+    /* Let polaroid hover work normally after the intro animation */
+    const polaroid = document.querySelector('.polaroid');
+    if (polaroid) {
+      polaroid.addEventListener('animationend', () => {
+        polaroid.style.animation = 'none';
+        polaroid.style.opacity = '1';
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1034 @@
+/* =========================================================
+   HANDYHT Portfolio — Shared Styles
+
+   TABLE OF CONTENTS:
+   1.  Theme Variables (Dark & Light mode colors)
+   2.  Reset & Base Styles
+   3.  Navigation (Desktop, Mobile, Theme Toggle)
+   4.  Hero Section (Homepage intro)
+   5.  Polaroid Card (Homepage profile photo)
+   6.  Sections & Page Headers
+   7.  Photo Gallery (Grid, Items, Lightbox)
+   8.  Category Filters (Photography page)
+   9.  About Section (Contact page)
+   10. Services Grid (Contact page)
+   11. Contact Section (Contact page)
+   12. Footer
+   13. Coming Soon Placeholder (Videography page)
+   14. Camera Flash Animation (Homepage intro effect)
+   15. Scroll Fade-In Animation
+   16. Custom Scrollbar
+   17. Responsive — Tablet (max-width: 768px)
+   18. Responsive — Phone (max-width: 480px)
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. THEME VARIABLES
+   Change these to update colors across the entire site.
+   Dark mode is the default. Light mode activates when
+   the user clicks the toggle (adds class "light" to <html>).
+   --------------------------------------------------------- */
+
+:root {
+  --bg: #000;                           /* Main background */
+  --bg2: #0a0a0a;                       /* Secondary background (featured sections) */
+  --card: #1d1d1f;                      /* Card / panel background */
+  --t1: #f5f5f7;                        /* Primary text color */
+  --t2: #a1a1a6;                        /* Secondary text (subtitles, captions) */
+  --t3: #6e6e73;                        /* Muted text (hints, timestamps) */
+  --blue: #2997ff;                      /* Accent color (link hover) */
+  --border: #2d2d2f;                    /* Borders and dividers */
+  --nav-bg: rgba(18, 18, 18, 0.85);    /* Translucent nav background */
+}
+
+html.light {
+  --bg: #fff;
+  --bg2: #f5f5f7;
+  --card: #fff;
+  --t1: #1d1d1f;
+  --t2: #6e6e73;
+  --t3: #a1a1a6;
+  --blue: #0066cc;
+  --border: #d2d2d7;
+  --nav-bg: rgba(245, 245, 247, 0.85);
+}
+
+
+/* ---------------------------------------------------------
+   2. RESET & BASE STYLES
+   --------------------------------------------------------- */
+
+html {
+  overflow-y: scroll;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--t1);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--blue);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+/* ---------------------------------------------------------
+   3. NAVIGATION
+   Fixed top bar with frosted-glass blur effect.
+   - Desktop: horizontal link list
+   - Mobile: hamburger button that opens a slide-down menu
+   - Theme toggle: dark/light switch with moon & sun icons
+   --------------------------------------------------------- */
+
+/* --- Top Bar (always visible) --- */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  will-change: transform;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html.light nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Brand Logo (gradient text) --- */
+
+.nav-brand {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #2997ff, #bf5af2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Desktop Nav Links --- */
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--t2);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--t1);
+}
+
+/* --- Hamburger Button (hidden on desktop, shown on mobile) --- */
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--t1);
+  z-index: 101;
+  position: relative;
+}
+
+.hamburger svg {
+  display: block;
+}
+
+.hamburger svg line {
+  transition: all 0.3s ease;
+}
+
+/* Animate hamburger → X when menu is open */
+.hamburger.active svg line:nth-child(1) {
+  transform-origin: 12px 6px;
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger.active svg line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active svg line:nth-child(3) {
+  transform-origin: 12px 18px;
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* --- Mobile Menu (fullscreen overlay, Apple-style) --- */
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg);
+  z-index: 99;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+}
+
+html.light .mobile-menu {
+  background: var(--bg);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 16px 0;
+  color: var(--t2);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  border-bottom: none;
+  transition: color 0.3s;
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a.active {
+  color: var(--t1);
+}
+
+/* --- Theme Toggle (dark/light switch) --- */
+
+.theme-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-icon {
+  transition: opacity 0.3s;
+  color: var(--t2);
+}
+
+/* Dark mode: moon bright, sun dim */
+.theme-moon { opacity: 1; }
+.theme-sun  { opacity: 0.3; }
+
+/* Light mode: sun bright, moon dim */
+html.light .theme-moon { opacity: 0.3; }
+html.light .theme-sun  { opacity: 1; }
+
+.theme-toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s;
+}
+
+/* Toggle knob (slides left ↔ right) */
+.theme-toggle::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--t1);
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+html.light .theme-toggle::after {
+  transform: translateX(16px);
+}
+
+
+/* ---------------------------------------------------------
+   4. HERO SECTION (Homepage)
+   Full-height intro with polaroid photo + greeting text.
+   Layout: polaroid on the left, text on the right.
+   Bokeh: floating out-of-focus light dots behind the content.
+   --------------------------------------------------------- */
+
+/* --- Bokeh Background (floating light dots) --- */
+
+.bokeh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bokeh span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: bokehFloat linear infinite;
+}
+
+/* Each dot gets a unique size, position, color, and timing */
+.bokeh span:nth-child(1)  { width: 400px; height: 400px; top: 5%;   left: 0%;   animation-duration: 18s; animation-delay: 0s;    background: rgba(41, 151, 255, 0.15); }
+.bokeh span:nth-child(2)  { width: 300px; height: 300px; top: 55%;  left: 10%;  animation-duration: 22s; animation-delay: -3s;   background: rgba(41, 151, 255, 0.12); }
+.bokeh span:nth-child(3)  { width: 500px; height: 500px; top: 15%;  left: 70%;  animation-duration: 25s; animation-delay: -8s;   background: rgba(191, 90, 242, 0.12); }
+.bokeh span:nth-child(4)  { width: 200px; height: 200px; top: 65%;  left: 80%;  animation-duration: 20s; animation-delay: -2s;   background: rgba(41, 151, 255, 0.18); }
+.bokeh span:nth-child(5)  { width: 350px; height: 350px; top: 35%;  left: 40%;  animation-duration: 28s; animation-delay: -12s;  background: rgba(191, 90, 242, 0.1); }
+.bokeh span:nth-child(6)  { width: 450px; height: 450px; top: 75%;  left: 50%;  animation-duration: 24s; animation-delay: -5s;   background: rgba(41, 151, 255, 0.1); }
+.bokeh span:nth-child(7)  { width: 250px; height: 250px; top: 0%;   left: 35%;  animation-duration: 19s; animation-delay: -9s;   background: rgba(191, 90, 242, 0.14); }
+.bokeh span:nth-child(8)  { width: 380px; height: 380px; top: 45%;  left: 20%;  animation-duration: 26s; animation-delay: -15s;  background: rgba(100, 200, 255, 0.1); }
+.bokeh span:nth-child(9)  { width: 320px; height: 320px; top: 25%;  left: 85%;  animation-duration: 21s; animation-delay: -7s;   background: rgba(41, 151, 255, 0.12); }
+.bokeh span:nth-child(10) { width: 500px; height: 500px; top: 80%;  left: 5%;   animation-duration: 30s; animation-delay: -11s;  background: rgba(191, 90, 242, 0.08); }
+.bokeh span:nth-child(11) { width: 220px; height: 220px; top: 10%;  left: 55%;  animation-duration: 17s; animation-delay: -4s;   background: rgba(100, 200, 255, 0.15); }
+.bokeh span:nth-child(12) { width: 420px; height: 420px; top: 40%;  left: 65%;  animation-duration: 23s; animation-delay: -14s;  background: rgba(41, 151, 255, 0.08); }
+
+@keyframes bokehFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1);     opacity: 0; }
+  15%  { opacity: 1; }
+  33%  { transform: translateY(-30px) translateX(15px) scale(1.15); }
+  66%  { transform: translateY(20px) translateX(-20px) scale(0.9);  opacity: 0.7; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(0) translateX(0) scale(1);     opacity: 0; }
+}
+
+/* Light mode: warmer tones, slightly stronger */
+html.light .bokeh span:nth-child(1)  { background: rgba(0, 102, 204, 0.18); }
+html.light .bokeh span:nth-child(2)  { background: rgba(0, 102, 204, 0.14); }
+html.light .bokeh span:nth-child(3)  { background: rgba(120, 50, 180, 0.15); }
+html.light .bokeh span:nth-child(4)  { background: rgba(0, 102, 204, 0.2); }
+html.light .bokeh span:nth-child(5)  { background: rgba(120, 50, 180, 0.12); }
+html.light .bokeh span:nth-child(6)  { background: rgba(0, 102, 204, 0.12); }
+html.light .bokeh span:nth-child(7)  { background: rgba(120, 50, 180, 0.16); }
+html.light .bokeh span:nth-child(8)  { background: rgba(60, 160, 230, 0.14); }
+html.light .bokeh span:nth-child(9)  { background: rgba(0, 102, 204, 0.14); }
+html.light .bokeh span:nth-child(10) { background: rgba(120, 50, 180, 0.1); }
+html.light .bokeh span:nth-child(11) { background: rgba(60, 160, 230, 0.18); }
+html.light .bokeh span:nth-child(12) { background: rgba(0, 102, 204, 0.1); }
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Flex layout for polaroid + text side by side */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Text block next to the polaroid */
+.hero-text {
+  text-align: left;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  font-size: 21px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--t2);
+  margin-bottom: 32px;
+}
+
+/* Pill-shaped CTA button (used across the entire site) */
+.hero-cta {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  color: var(--t1);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  background: transparent;
+}
+
+.hero-cta:hover {
+  background: var(--t1);
+  border-color: var(--t1);
+  color: var(--bg);
+}
+
+
+/* ---------------------------------------------------------
+   5. POLAROID CARD (Homepage profile photo)
+   Tilted photo frame with white border, like a real polaroid.
+   Straightens and scales up slightly on hover.
+   --------------------------------------------------------- */
+
+.polaroid {
+  transform: rotate(-3deg);
+  transition: transform 0.4s;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-inner {
+  background: #fff;
+  padding: 16px 16px 20px 16px;
+  border-radius: 4px;
+  box-shadow:
+    0 12px 50px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+html.light .polaroid-inner {
+  box-shadow:
+    0 12px 50px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* The photo area inside the polaroid frame */
+.polaroid-photo {
+  width: 280px;
+  height: 340px;
+  background-size: cover;
+  background-position: center;
+  background-color: #e8e8e8;
+  position: relative;
+}
+
+/* Handwritten label below the photo (leave empty or add text) */
+.polaroid-label {
+  text-align: center;
+  font-family: "Segoe Print", "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: 18px;
+  color: #333;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+
+
+/* ---------------------------------------------------------
+   6. SECTIONS & PAGE HEADERS
+   Reusable layout for content sections across all pages.
+   --------------------------------------------------------- */
+
+.section {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Removes top & bottom padding (used inside wrapper sections) */
+.section--flush {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-header h2 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.section-header p {
+  font-size: 19px;
+  color: var(--t2);
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Full-width wrapper with alternate background (used for featured work) */
+.featured-section {
+  background: var(--bg2);
+  padding: 120px 0;
+}
+
+/* Centered container for CTA buttons below a section */
+.cta-wrap {
+  text-align: center;
+  margin-top: 48px;
+}
+
+
+/* ---------------------------------------------------------
+   7. PHOTO GALLERY
+   Grid layout for the photography page and homepage featured work.
+   - 3 columns on desktop, 2 on tablet, 1 on phone
+   - Each item has a 3:4 portrait crop
+   - Click any photo to view full-size in the lightbox
+
+   TO ADD A NEW PHOTO:
+   1. Drop your image in the correct folder:
+      images/photography/engagements/
+      images/photography/graduations/
+      images/photography/moments/
+   2. Add this block inside the gallery grid in photography.html:
+      <div class="gallery-item" data-cat="engagements">
+        <img src="images/photography/engagements/your-photo.jpg" alt="Description">
+      </div>
+   3. Change data-cat to match: engagements / graduations / moments
+
+   TO ADJUST CROPPING on a specific photo:
+   Add style="object-position: left" (or right/top/bottom) to the <img>
+   --------------------------------------------------------- */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.gallery-item {
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s;
+}
+
+.gallery-item:hover img {
+  filter: brightness(0.8);
+}
+
+/* --- Lightbox (full-screen photo viewer) --- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ---------------------------------------------------------
+   8. CATEGORY FILTERS (Photography page)
+   Pill-shaped buttons that filter the gallery by category.
+   --------------------------------------------------------- */
+
+.cat-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.cat-btn {
+  padding: 10px 24px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--t2);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.cat-btn:hover,
+.cat-btn.active {
+  background: var(--t1);
+  color: var(--bg);
+  border-color: var(--t1);
+}
+
+
+/* ---------------------------------------------------------
+   9. ABOUT SECTION (Contact page)
+   Two-column layout: portrait photo on left, bio text on right.
+   To change your portrait: update the background-image URL
+   in contact.html on the .about-photo element.
+   --------------------------------------------------------- */
+
+.about-section {
+  padding: 120px 24px;
+  background: var(--bg2);
+}
+
+.about-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.about-photo {
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--card);
+  background-size: cover;
+  background-position: center;
+}
+
+.about-text h2 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.about-text p {
+  font-size: 17px;
+  color: var(--t2);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+
+/* ---------------------------------------------------------
+   10. SERVICES GRID (Contact page)
+   Three cards: Photography, Videography, Editing.
+   To add a service: copy a .service-card block in contact.html.
+   To remove one: delete the .service-card block.
+   --------------------------------------------------------- */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.service-card {
+  text-align: center;
+  padding: 40px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.service-icon {
+  color: var(--t2);
+  margin-bottom: 16px;
+}
+
+.service-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--t3);
+}
+
+
+/* ---------------------------------------------------------
+   11. CONTACT SECTION (Contact page)
+   Centered heading with email, Instagram, and YouTube links.
+   To update your links: edit the href values in contact.html.
+   --------------------------------------------------------- */
+
+.contact-section {
+  padding: 120px 24px;
+  text-align: center;
+}
+
+.contact-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-inner h2 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.contact-inner p {
+  font-size: 19px;
+  color: var(--t2);
+  margin-bottom: 48px;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  padding: 14px 32px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.3s;
+  color: var(--t2);
+}
+
+.contact-link:hover {
+  background: var(--t1);
+  color: var(--bg);
+  border-color: var(--t1);
+}
+
+
+/* ---------------------------------------------------------
+   12. FOOTER
+   --------------------------------------------------------- */
+
+footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+}
+
+footer p {
+  font-size: 13px;
+  color: var(--t3);
+}
+
+
+/* ---------------------------------------------------------
+   13. COMING SOON PLACEHOLDER (Videography page)
+   Shown when a page has no content yet.
+   Remove this section and replace with real content when ready.
+   --------------------------------------------------------- */
+
+.coming-soon {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.coming-soon-icon {
+  color: var(--t3);
+  margin-bottom: 24px;
+}
+
+.coming-soon h3 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.coming-soon p {
+  font-size: 17px;
+  color: var(--t3);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   14. CAMERA FLASH ANIMATION (Homepage intro)
+   White flash on page load, then hero content fades in.
+   Only used on index.html.
+   --------------------------------------------------------- */
+
+.flash-reveal {
+  animation: flashIn 1.2s ease-out forwards;
+}
+
+.flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 300;
+  pointer-events: none;
+  animation: flashFade 1.2s ease-out forwards;
+}
+
+@keyframes flashFade {
+  0%   { opacity: 1; }
+  15%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes flashIn {
+  0%   { opacity: 0; transform: scale(1.05); }
+  15%  { opacity: 0; }
+  30%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Stagger reveal of hero elements after the flash */
+.hero-content > * {
+  opacity: 0;
+  animation: revealAfterFlash 0.8s ease-out forwards;
+}
+
+.hero-content > .polaroid {
+  opacity: 0;
+  animation: revealPolaroid 0.8s ease-out 0.3s forwards;
+}
+
+.hero-content > *:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes revealAfterFlash {
+  0%   { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealPolaroid {
+  0%   { opacity: 0; transform: rotate(-8deg) scale(0.9); }
+  100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+}
+
+
+/* ---------------------------------------------------------
+   15. SCROLL FADE-IN ANIMATION
+   Add class "fade-in" to any element. It starts invisible
+   and slides up when scrolled into view (via JavaScript).
+   --------------------------------------------------------- */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ---------------------------------------------------------
+   16. CUSTOM SCROLLBAR (Chrome & Edge only)
+   --------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+
+/* --- Footer Theme Toggle (mobile only) --- */
+
+.footer-theme-toggle {
+  display: none;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+/* ---------------------------------------------------------
+   17. RESPONSIVE — TABLET (max-width: 768px)
+   --------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  .hero p {
+    font-size: 17px;
+  }
+
+  /* Stack hero content vertically */
+  .hero-content {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .polaroid-photo {
+    width: 220px;
+    height: 270px;
+  }
+
+  .section-header h2,
+  .about-text h2,
+  .contact-inner h2 {
+    font-size: 36px;
+  }
+
+  /* Gallery: 2 columns */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* About: single column, centered */
+  .about-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  /* Show hamburger, hide desktop links */
+  .nav-links {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  /* Show footer theme toggle on mobile */
+  .footer-theme-toggle {
+    display: flex;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   18. RESPONSIVE — PHONE (max-width: 480px)
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+  /* Gallery: single column */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .polaroid-photo {
+    width: 180px;
+    height: 220px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+}
